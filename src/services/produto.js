@@ -65,7 +65,7 @@ export const getAllProductType = () => {
 
 export const newMarca = (values) => {
   return axiosInstance
-    .post('/api/mark', values)
+    .post('/mark', values)
     .then((resp) => resp)
     .catch((error) => {
       throw new Error(error)

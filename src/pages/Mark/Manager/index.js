@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { applySpec, pathOr } from 'ramda'
+import { applySpec, pathOr, map } from 'ramda'
 import { Form, message } from 'antd'
 
 import ManagerContainer from '../../../containers/Mark/Manager'
@@ -14,6 +14,12 @@ const Manager = () => {
   const [searchValue, setSearchValue] = useState('')
   const [visibleCreateMark, setVisibleCreateMark] = useState(false)
 
+  const addKey = (array, key) => {
+    return map((data) => {
+      return { ...data, key: data[key] }
+    }, array)
+  }
+
   const getAllMarks = useCallback(() => {
     const query = {
       filters: {
@@ -25,7 +31,7 @@ const Manager = () => {
       },
     }
 
-    getAllMarksService(query).then(({ data }) => setDataSource(data))
+    getAllMarksService(query).then(({ data }) => setDataSource((addKey(data, 'mark'))))
   }, [searchValue])
 
   const handleCancelCreateMark = () => {

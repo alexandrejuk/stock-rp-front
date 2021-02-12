@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, message } from 'antd';
 import { compose } from 'ramda';
-import PropTypes from 'prop-types';
 
 import {
   newProduto,
@@ -80,10 +79,5 @@ const enhanced = compose(
   connect(mapStateToProps),
 );
 
-AddProduct.propTypes = {
-  auth: PropTypes.shape({
-    modulo: PropTypes.bool.isRequired,
-  }).isRequired,
-};
 
 export default enhanced(AddProduct);

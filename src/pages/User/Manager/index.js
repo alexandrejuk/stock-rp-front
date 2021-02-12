@@ -79,9 +79,6 @@ const mapStateToProps = ({ auth }) => ({
 const enhanced = compose(connect(mapStateToProps), withRouter)
 
 Manager.propTypes = {
-  auth: PropTypes.shape({
-    modulo: PropTypes.bool.isRequired,
-  }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

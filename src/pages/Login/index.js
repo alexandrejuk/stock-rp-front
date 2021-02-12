@@ -17,11 +17,13 @@ class LoginPage extends Component {
 
   verifyAuth = async () => {
     try {
-      await promisify(verify)(
-        this.props.auth.token,
-        process.env.REACT_APP_SECRET_KEY_JWT
-      )
-      await this.setState({ authenticated: true })
+      if(this.props.auth.token){
+        await promisify(verify)(
+          this.props.auth.token,
+          process.env.REACT_APP_SECRET_KEY_JWT
+        )
+        await this.setState({ authenticated: true })
+      }
     } catch (error) {
       console.error(error)
     }

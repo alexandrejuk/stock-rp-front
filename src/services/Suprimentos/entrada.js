@@ -2,7 +2,7 @@ import axiosInstance from '../../helpers/request'
 
 export const NovaEntrada = (values) => {
   return axiosInstance
-    .post('/api/suprimentos/entrance', values, {})
+    .post('/suprimentos/entrance', values, {})
     .then((resp) => resp)
     .catch((error) => {
       throw new Error(error)
@@ -11,7 +11,7 @@ export const NovaEntrada = (values) => {
 
 export const GetEntrance = (query) => {
   return axiosInstance
-    .get('/api/suprimentos/entrance', {
+    .get('/suprimentos/entrance', {
       params: { query },
     })
     .then((resp) => resp)
