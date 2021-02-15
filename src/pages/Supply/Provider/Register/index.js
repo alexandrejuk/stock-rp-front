@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, message } from 'antd'
 
-import AddProviderSupContainer from '../../../../containers/Supply/Register/Provider'
+import AddProviderSupContainer from '../../../../containers/Supply/Provider/Register'
 import buildProvider from '../../../../utils/providerSpec'
 import { NovoFornecedor } from '../../../../services/Suprimentos/fornecedor'
 

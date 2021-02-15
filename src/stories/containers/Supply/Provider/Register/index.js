@@ -2,11 +2,11 @@ import React from 'react'
 import { Form } from 'antd'
 import { action } from '@storybook/addon-actions'
 
-import AddProviderSupContainer from '../../../../../containers/Supply/Register/Provider'
+import AddProviderSupContainer from '../../../../../containers/Supply/Provider/Register'
 import buildProvider from '../../../../../utils/providerSpec'
 
 export default {
-  title: 'Containers/Supply/Register/Provider',
+  title: 'Containers/Supply/Provider/Register',
   component: AddProviderSupContainer,
 }
 
