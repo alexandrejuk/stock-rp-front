@@ -86,6 +86,49 @@ const OutputContainer = ({
   </>
 )
 
+const TableChecklist = ({
+  checkList,
+  handleSubmitCheckList,
+  productsWaitingReturn,
+  returnForAssociation,
+}) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState([])
+
+  return (
+    <>
+      <Row gutter={[0, 20]}>
+        <Col span={24}>
+          <Table
+            columns={columnsProductsWaitingReturnWithOs({
+              returnForAssociation,
+              selectedRowKeys: [],
+            })}
+            dataSource={checkList}
+            rowSelection={{
+              selectedRowKeys,
+              onChange: (selectedRowKeys) => setSelectedRowKeys(selectedRowKeys),
+            }}
+          />
+        </Col>
+      </Row>
+      <Button
+        disabled={
+          !equals(
+            length(filter(({ os }) => os !== '-', productsWaitingReturn)),
+            length(selectedRowKeys)
+          )
+        }
+        type="primary"
+        onClick={() => {
+          handleSubmitCheckList(checkList)
+        }}
+      >
+        Enviar
+      </Button>
+    </>
+  )
+}
+
 const Romaneio = ({
   handleCancelModalExpeditionSerialNumber,
   handleCancelProductReturn,
@@ -112,8 +155,6 @@ const Romaneio = ({
   visibleModalExpeditionProducts,
   visibleModalExpeditionSerialNumber,
 }) => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
-
   const checkList = map(
     (item) => {
       return {
@@ -143,34 +184,12 @@ const Romaneio = ({
         </Col>
       </Row>
 
-      <Row gutter={[0, 20]}>
-        <Col span={24}>
-          <Table
-            columns={columnsProductsWaitingReturnWithOs({
-              returnForAssociation,
-              selectedRowKeys,
-            })}
-            dataSource={checkList}
-            rowSelection={{ selectedRowKeys, onChange: setSelectedRowKeys }}
-          />
-        </Col>
-      </Row>
-
-      <Button
-        disabled={
-          !equals(
-            length(filter(({ os }) => os !== '-', productsWaitingReturn)),
-            length(selectedRowKeys)
-          )
-        }
-        type="primary"
-        onClick={() => {
-          handleSubmitCheckList(checkList)
-          setSelectedRowKeys([])
-        }}
-      >
-        Enviar
-      </Button>
+      <TableChecklist
+        checkList={checkList}
+        handleSubmitCheckList={handleSubmitCheckList}
+        productsWaitingReturn={productsWaitingReturn}
+        returnForAssociation={returnForAssociation}
+      />
     </>
   )
 

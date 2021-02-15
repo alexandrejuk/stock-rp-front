@@ -16,7 +16,7 @@ const osList = [],
   productsWaitingReturnInitialValue = [],
   technicianList = [{ name: 'LABORATORIO', key: 'LABORATORIO' }]
 
-for (let key = 0; key < 20; key++) {
+for (let key = 0; key < 50; key++) {
   const hasOs = random.boolean()
   const serial = random.boolean()
 
