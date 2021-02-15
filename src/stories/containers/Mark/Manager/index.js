@@ -68,3 +68,8 @@ const Template = (args) => {
 }
 
 export const AddMark = Template.bind({})
+
+AddMark.args ={
+  handleChangeTable: action('handle change table') ,
+  pagination: { showSizeChanger: false }
+}

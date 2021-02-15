@@ -1,51 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Form, message } from 'antd';
-import { compose } from 'ramda';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { Form, message } from 'antd'
+import { compose } from 'ramda'
+import PropTypes from 'prop-types'
 
 import {
   newProduto,
   getAllProductType,
   getMarca,
-} from '../../../services/produto';
-import AddProductContainer from '../../../containers/Product/AddProduct';
-import { buildProduct } from '../../../utils/productSpec';
+} from '../../../services/produto'
+import AddProductContainer from '../../../containers/Product/AddProduct'
+import { buildProduct } from '../../../utils/productSpec'
 
-const success = () => message.success('O cadastro foi efetuado');
-const errorMessage = () => message.error('O cadastro não foi efetuado');
+const success = () => message.success('O cadastro foi efetuado')
+const errorMessage = () => message.error('O cadastro não foi efetuado')
 
-const AddProduct = ({
-  auth,
-}) => {
-  const [form] = Form.useForm();
+const AddProduct = ({ auth }) => {
+  const [form] = Form.useForm()
   const [marksList, setMarkList] = useState([])
   const [typesList, setTypesList] = useState([])
 
   useEffect(() => {
-    getAllMarca();
-    getAllTipo();
-  }, []);
+    getAllMarca()
+    getAllTipo()
+  }, [])
 
   const getAllTipo = async () => {
     try {
-      const { data, status } = await getAllProductType();
+      const { data, status } = await getAllProductType()
       if (status === 404 || status === 422 || status === 500) {
         throw new Error('422 Unprocessable Entity!')
       }
-      setTypesList(data);
+      setTypesList(data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
   const getAllMarca = async () => {
     try {
-      const { data, status } = await getMarca({});
+      const {
+        data: { rows },
+        status,
+      } = await getMarca({ total: null })
       if (status === 404 || status === 422 || status === 500) {
         throw new Error('422 Unprocessable Entity!')
       }
-      setMarkList(data);
+      setMarkList(rows)
     } catch (error) {
       console.log(error)
     }
@@ -54,11 +55,11 @@ const AddProduct = ({
   const handleSubmit = async (formData) => {
     const { modulo } = auth
     try {
-      await newProduto(buildProduct({...formData, modulo }));
-      form.resetFields();
-      await success();
+      await newProduto(buildProduct({ ...formData, modulo }))
+      form.resetFields()
+      await success()
     } catch (error) {
-      errorMessage();
+      errorMessage()
     }
   }
 
@@ -69,21 +70,19 @@ const AddProduct = ({
       marksList={marksList}
       typesList={typesList}
     />
-  );
+  )
 }
 
 const mapStateToProps = ({ auth }) => ({
   auth,
 })
 
-const enhanced = compose(
-  connect(mapStateToProps),
-);
+const enhanced = compose(connect(mapStateToProps))
 
 AddProduct.propTypes = {
   auth: PropTypes.shape({
     modulo: PropTypes.bool.isRequired,
   }).isRequired,
-};
+}
 
-export default enhanced(AddProduct);
+export default enhanced(AddProduct)

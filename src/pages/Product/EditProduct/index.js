@@ -22,11 +22,14 @@ const EditProduct = ({ history, match }) => {
 
   const getAllMarca = useCallback(async () => {
     try {
-      const { data, status } = await getMarca({})
+      const {
+        data: { rows },
+        status,
+      } = await getMarca({ total: null })
       if (status === 404 || status === 422 || status === 500) {
         throw new Error('422 Unprocessable Entity!')
       }
-      setMarkList(data)
+      setMarkList(rows)
     } catch (error) {
       console.log(error)
     }

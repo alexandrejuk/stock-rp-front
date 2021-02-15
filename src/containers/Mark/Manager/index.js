@@ -32,9 +32,11 @@ const Manager = ({
   dataSource,
   formCreateMark,
   handleCancelCreateMark,
+  handleChangeTable,
   handleOkCreateMark,
   handleOnClickNewMark,
   handleOnSearch,
+  pagination,
   visibleCreateMark,
 }) => (
   <>
@@ -70,7 +72,8 @@ const Manager = ({
         <Table
           columns={columns}
           dataSource={dataSource}
-          pagination={{ showSizeChanger: false }}
+          onChange={handleChangeTable}
+          pagination={pagination}
         />
       </Col>
     </Row>
